@@ -3,6 +3,9 @@
 
 This week we create a Next.js gallery that displays NFTs from the Ethereum Mainnet. The data are fetched using Alchemy's NFT-Api. Features a (wonky) page navigation implementation, as well a button that copies an NFT's collection contract address to the clipboard.
 
+* https://youtu.be/JzsTfOFjC1o
+* https://docs.alchemy.com/alchemy/road-to-web3/weekly-learning-challenges/4.-how-to-create-an-nft-gallery-alchemy-nft-api
+
 ## Weirdness
 * NFT images do not always load; NFTs without images do not display a placeholder image, leading to inconsistent NFT card sizes.
 * NFT cards can vary in size depending on the existence/length of the title and/or description.

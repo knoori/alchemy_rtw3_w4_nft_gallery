@@ -179,28 +179,36 @@ const Home = () => {
         }
       </div>
       <div className="inline-flex">
-        <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 ml-1 rounded-l" onClick={
+        <button disabled={!hasPreviousPage} className="bg-violet-500 disabled:bg-slate-200 hover:bg-violet-600 text-white font-bold py-2 px-4 ml-1 rounded-l" onClick={
           () => {
             if (fetchForCollection) {
-              setStartTokenId(prevTokenId);
-              // callGetNFTsForCollectionOnce();
-              fetchNftsForCollection(startTokenId);
+              setCurrentTokenId(prevTokenId);
+              fetchNftsForCollection(prevTokenId);
+              setPrevTokenId("");
             } else {
-              fetchNfts();
+              setCurrentPageKey(prevPageKey);
+              fetchNfts(prevPageKey);
+              setPrevPageKey("");
             }
+            // Previous button only works 1 time per "Next" click due to API
+            // Limitation could be circumvented by storing pageKey's in an array
+            setHasPreviousPage(false);
           }
         }>Prev
         </button>
-        <button className="bg-violet-500 hover:bg-violet-600 text-white font-bold py-2 px-4 ml-1 rounded-r" onClick={
+        <button disabled={!hasNextPage} className="bg-violet-500 disabled:bg-slate-200 hover:bg-violet-600 text-white font-bold py-2 px-4 ml-1 rounded-r" onClick={
           () => {
+
             if (fetchForCollection) {
-              setPrevTokenId(startTokenId);
-              setStartTokenId(nextTokenId);
-              // callGetNFTsForCollectionOnce();
-              fetchNftsForCollection(startTokenId);
+              setPrevTokenId(currentTokenId);
+              setCurrentTokenId(nextTokenId);
+              fetchNftsForCollection(nextTokenId);
             } else {
-              fetchNfts();
+              setPrevPageKey(currentPageKey);
+              setCurrentPageKey(nextPageKey);
+              fetchNfts(nextPageKey);
             }
+            setHasPreviousPage(true);
           }
         }>Next
         </button>
